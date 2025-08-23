@@ -1,0 +1,342 @@
+/* Additional styles can be added here if needed */
+
+/* --- Minimalistic Page Header --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-header .section-title {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.page-header p {
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.page-header::after {
+    animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+/* Responsive design for page header */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 60px 0 40px;
+        min-height: 150px;
+    }
+    
+    .page-header .section-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* About section: push the Read More button lower */
+.about-text .btn.btn-secondary {
+    margin-top: 40px;
+}
+
+/* --- Modern Minimalistic Shopee Link --- */
+.product-card .shopee-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    width: 100%;
+}
+
+.product-card .shopee-link:hover {
+    transform: scale(1.1);
+}
+
+/* --- Featured Products Carousel (Home) --- */
+.featured-carousel {
+    position: relative;
+}
+
+.featured-carousel .carousel-viewport {
+    overflow: hidden;
+}
+
+.featured-carousel .carousel-track {
+    display: flex;
+    gap: 24px;
+    will-change: transform;
+}
+
+.featured-carousel .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid var(--light-gray);
+    cursor: pointer;
+}
+
+.featured-carousel .carousel-btn.prev { left: -10px; }
+.featured-carousel .carousel-btn.next { right: -10px; }
+
+/* Ensure product cards inside carousel use the same look as products page */
+.featured-carousel .product-card {
+    min-width: calc((100% - 5 * 24px) / 6); /* 6 per view, 5 gaps */
+}
+
+@media (max-width: 1200px) {
+    .featured-carousel .product-card { min-width: calc((100% - 3 * 24px) / 4); }
+}
+@media (max-width: 992px) {
+    .featured-carousel .product-card { min-width: calc((100% - 2 * 24px) / 3); }
+}
+@media (max-width: 768px) {
+    .featured-carousel .product-card { min-width: calc((100% - 1 * 20px) / 2); }
+}
+@media (max-width: 480px) {
+    .featured-carousel .product-card { min-width: 100%; }
+}
+
+/* Shopee brand styling */
+.product-card .shopee-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Shopee logo styling */
+.product-card .shopee-link .shopee-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+    position: relative;
+    top: 0;
+}
+
+/* Shopee text styling */
+.product-card .shopee-text {
+    display: none !important;
+}
+
+/* --- Brands Section Styles --- */
+.brand-item {
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+}
+
+.brand-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.15);
+    border-color: var(--primary-color);
+}
+
+.brand-item img {
+    transition: transform 0.3s ease;
+}
+
+.brand-item:hover img {
+    transform: scale(1.05);
+}
+
+.brand-item h3 {
+    transition: color 0.3s ease;
+}
+
+.brand-item:hover h3 {
+    color: var(--primary-color);
+}
+
+/* --- Carousel Button Styles --- */
+.carousel-btn {
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.carousel-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.carousel-btn:active {
+    transform: translateY(-50%) scale(0.98);
+}
+
+/* --- Responsive Carousel --- */
+@media (max-width: 768px) {
+    .brands-carousel-container {
+        margin: 0 -10px;
+    }
+    
+    .brand-item {
+        min-width: 220px !important;
+        margin: 0 10px !important;
+        padding: 20px !important;
+    }
+    
+    .brand-item img {
+        width: 140px !important;
+        height: 70px !important;
+    }
+    
+    .carousel-btn {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.875rem !important;
+        left: 10px !important;
+        right: 10px !important;
+    }
+    
+    /* Mobile responsive Shopee link */
+    .product-card .shopee-link {
+        width: 100%;
+        margin-top: 12px;
+    }
+    
+    .product-card .shopee-brand {
+        gap: 6px;
+    }
+    
+    .product-card .shopee-link .shopee-logo {
+        width: 22px;
+        height: 22px;
+        top: 0;
+    }
+    
+    .product-card .shopee-text {
+        font-size: 0.7rem;
+    }
+    
+    /* Mobile responsive product cards */
+    .product-card {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .product-card h3 {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 12px;
+    }
+    
+    .product-card .product-category {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+    
+    /* Mobile responsive buttons */
+    .btn {
+        padding: 12px 24px;
+        font-size: 0.875rem;
+    }
+    
+    /* Mobile responsive section titles */
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+    
+    /* Mobile responsive container padding */
+    .container {
+        padding: 0 16px;
+    }
+    
+    /* Mobile responsive navbar */
+    .navbar-brand .logo {
+        height: 50px;
+    }
+    
+    /* Mobile responsive hero section */
+    .hero-content h1 {
+        font-size: 2.2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    
+    /* Mobile responsive footer */
+    .footer-grid {
+        gap: 30px;
+    }
+    
+    .footer-col h3 {
+        font-size: 1.1rem;
+    }
+    
+    .footer-col p,
+    .footer-col ul li {
+        font-size: 0.9rem;
+    }
+    
+    /* Mobile responsive social links */
+    .social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    .product-card {
+        padding: 12px;
+    }
+    
+    .product-card h3 {
+        font-size: 0.85rem;
+    }
+    
+    .product-card .shopee-link .shopee-logo {
+        width: 18px;
+        height: 18px;
+        top: 0;
+    }
+    
+    .product-card .shopee-text {
+        font-size: 0.65rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+    }
+    
+    .navbar-brand .logo {
+        height: 45px;
+    }
+    
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        right: 15px;
+        bottom: 15px;
+    }
+    
+    .whatsapp-float i {
+        font-size: 1.5rem;
+    }
+}

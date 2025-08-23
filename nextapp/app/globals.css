@@ -1,0 +1,493 @@
+/* Load project CSS first so it remains authoritative */
+@import url('/assets/css/style.css');
+@import url('/assets/css/additional-styles.css');
+
+/* Then layer in Tailwind utilities without preflight (disabled in config) */
+@tailwind components;
+@tailwind utilities;
+
+/* Animation utilities */
+:root {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --primary-color: #FFC107;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Animation helpers */
+.will-change-transform {
+  will-change: transform, opacity;
+}
+
+/* Micro-interactions for buttons and links */
+.btn, button, [role="button"] {
+  transition: transform 150ms var(--ease), box-shadow 150ms var(--ease);
+}
+
+.btn:active, button:active, [role="button"]:active {
+  transform: scale(0.98);
+}
+
+.btn:focus-visible, button:focus-visible, [role="button"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Hover effects for cards */
+.product-card, .product-card-infinite {
+  transition: transform 150ms var(--ease), box-shadow 150ms var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover, .product-card-infinite:hover {
+    transform: translateY(-3px) scale(1.01);
+  }
+}
+
+/* Shimmer skeleton animation */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, transparent 37%, #f0f0f0 63%);
+  background-size: 400px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: #f0f0f0;
+  }
+}
+
+/* Language switcher (non-animated fallback) */
+.lang-switcher {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  width: 92px;
+  height: 32px;
+  padding: 3px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+}
+
+.lang-switcher .lang-seg {
+  position: relative;
+  z-index: 2;
+  border: 0;
+  background: transparent;
+  color: #6b7280; /* gray-500 */
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 999px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.lang-switcher .lang-seg[aria-pressed="true"] {
+  color: #111827; /* gray-900 */
+}
+
+.lang-switcher .lang-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  background: #ffffff;
+  border-radius: 999px;
+  border: 1px solid #f3f4f6; /* gray-100 */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  transition: transform 200ms var(--ease);
+}
+
+.lang-switcher.lang-en .lang-thumb { transform: translateX(0); }
+.lang-switcher.lang-id .lang-thumb { transform: translateX(100%); }
+
+.lang-switcher .lang-seg:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+  border-radius: 10px;
+}
+
+/* Smooth content transition when language changes */
+[data-lang-key] {
+  transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+}
+
+body.lang-switching [data-lang-key] {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* ---- About Page Enhancements (brand-aligned with yellow accent) ---- */
+.about-page .text-primary { color: var(--primary-color) !important; }
+.about-page .bg-primary { background-color: var(--primary-color) !important; }
+.about-page .bg-primary\/20 { background-color: rgba(255, 193, 7, 0.20) !important; }
+.about-page .bg-primary\/30 { background-color: rgba(255, 193, 7, 0.30) !important; }
+.about-page .border-primary { border-color: var(--primary-color) !important; }
+.about-page .from-primary { --tw-gradient-from: var(--primary-color) !important; }
+.about-page .to-primary { --tw-gradient-to: var(--primary-color) !important; }
+.section-underline {
+  width: 96px;
+  height: 4px;
+  background: var(--primary-color, #FFC107);
+  border-radius: 999px;
+  margin: 10px auto 0 auto;
+}
+
+.values-section {
+  background: #ffffff;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.values-card {
+  background: #fff;
+  border: 1px solid rgba(255, 193, 7, 0.35);
+  border-radius: 14px;
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms var(--ease);
+}
+
+.values-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 193, 7, 0.18);
+  border-color: rgba(255, 193, 7, 0.65);
+}
+
+.values-icon {
+  color: var(--primary-color, #FFC107);
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.values-card h3 { margin-bottom: 8px; }
+.values-card p { margin: 0; line-height: 1.6; }
+
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  gap: 28px;
+}
+
+.brand-logo {
+  filter: grayscale(1) contrast(1.05);
+  opacity: 0.9;
+  transition: transform 180ms var(--ease), filter 180ms var(--ease), opacity 180ms var(--ease);
+}
+
+.brand-logo:hover {
+  filter: none;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .values-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .brands-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .values-grid { grid-template-columns: 1fr; }
+  .brands-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Section underline accent */
+.section-underline {
+  width: 64px;
+  height: 4px;
+  background: linear-gradient(135deg, var(--primary-color, #FFC107) 0%, #f59e0b 100%);
+  margin: 16px auto 24px;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+/* Simple Professional Brands Section */
+.brands-grid-simple {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.brand-logo-simple {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+}
+
+.brand-logo-simple:hover {
+  filter: grayscale(0%) opacity(1);
+  transform: translateY(-3px);
+}
+
+.brand-logo-simple img {
+  max-height: 40px;
+  max-width: 120px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.infinix-logo-simple {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* --- Brands We Support (horizontal row like reference) --- */
+.brands-section {
+  background: #ffffff;
+  padding: 80px 0;
+}
+
+.brands-section .container {
+  max-width: 1400px;
+}
+
+.brands-section .section-title {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.brands-section .brands-subtitle {
+  font-size: 1.25rem;
+  color: #4b5563;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 8px;
+}
+
+.brands-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.brands-carousel-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.brands-carousel {
+  display: flex;
+  gap: 40px;
+  flex-wrap: nowrap;
+  will-change: transform;
+  transition: transform 0.6s ease;
+}
+
+.brand-item {
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+  border-radius: 16px;
+  width: 820px;
+  height: 420px;
+  padding: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.brand-item img {
+  max-height: 98%;
+  max-width: 98%;
+  filter: none;
+}
+
+/* Ensure brand tiles are full color (no grayscale) */
+.brands-carousel .brand-item {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #111827;
+  z-index: 2;
+}
+
+.carousel-btn-prev { left: -12px; }
+.carousel-btn-next { right: -12px; }
+
+.brands-horizontal-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.brand-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  transition: all 0.3s ease;
+  filter: grayscale(100%) opacity(0.8);
+  cursor: pointer;
+}
+
+.brand-item:hover {
+  filter: grayscale(0%) opacity(1);
+  transform: translateY(-2px);
+}
+
+.brand-item img {
+  max-height: 70px;
+  max-width: 180px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.infinix-brand {
+  background: #666666;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  filter: grayscale(0%) opacity(1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.infinix-brand:hover {
+  background: #555555;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+
+@media (max-width: 768px) {
+  .brands-horizontal-row {
+    gap: 50px;
+    padding: 40px 15px;
+  }
+  
+  .brand-item {
+    height: 60px;
+  }
+  
+  .brand-item img {
+    max-height: 50px;
+    max-width: 130px;
+  }
+  
+  .infinix-brand {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brands-horizontal-row {
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .brand-item {
+    height: 50px;
+  }
+  
+  .brand-item img {
+    max-height: 42px;
+    max-width: 115px;
+  }
+  
+  .infinix-brand {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .brands-grid-simple {
+    gap: 40px;
+    padding: 30px 15px;
+  }
+  
+  .brand-logo-simple img {
+    max-height: 32px;
+    max-width: 100px;
+  }
+  
+  .infinix-logo-simple {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brands-grid-simple {
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .brand-logo-simple {
+    flex: 0 0 calc(33.333% - 20px);
+    height: 50px;
+  }
+  
+  .brand-logo-simple img {
+    max-height: 28px;
+    max-width: 80px;
+  }
+}
