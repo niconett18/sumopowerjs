@@ -226,13 +226,6 @@ export default function ProductQuickLook({ product, open, onClose }: ProductQuic
 										{product.ctaLabel || 'Buy'}
 									</a>
 								)}
-								<button
-									type="button"
-									className="w-full h-11 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 mt-2"
-									aria-label="View more details"
-								>
-									View more
-								</button>
 							</div>
 
 							<AnimatePresence>
@@ -338,13 +331,6 @@ export default function ProductQuickLook({ product, open, onClose }: ProductQuic
 												{product.ctaLabel || 'Buy'}
 											</a>
 										)}
-										<button
-											type="button"
-											className="inline-flex items-center justify-center rounded-full border border-black/15 dark:border-white/20 text-neutral-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/5 px-5 py-2.5 text-sm md:text-base"
-											aria-label="View more details"
-										>
-											View more
-										</button>
 									</div>
 								</div>
 							</div>

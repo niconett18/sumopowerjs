@@ -165,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <span class="product-category">${translations[currentLanguage][product.category_key]}</span>
                 <h3 class=\"product-title\">${product[nameKey]}</h3>
-                <button class=\"title-toggle\" aria-label=\"Toggle full title\">View more</button>
                 <a href="${product.shopeeUrl}" target="_blank" class="shopee-link">
                     <div class="shopee-brand">
                         <img src="../assets/images/shopeelogo.png" alt="Shopee" class="shopee-logo">
@@ -173,11 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </a>
             `;
-            const toggleBtn = card.querySelector('.title-toggle');
-            toggleBtn.addEventListener('click', () => {
-                card.classList.toggle('expanded');
-                toggleBtn.textContent = card.classList.contains('expanded') ? 'Show less' : 'View more';
-            });
             productGrid.appendChild(card);
         });
 
