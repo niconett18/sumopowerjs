@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import productsStatic from '../../data/products.static';
 
 const translations = {
@@ -119,14 +120,19 @@ export default function FeaturedProducts({ lang = 'en' }) {
                {featuredProducts.map((product, index) => (
                  <div key={`${product.id}-${index}`} className="product-card-infinite hoverable">
                    <div className="product-image">
-                     <img 
+                     <Image 
                        src={product.imageUrl} 
                        alt={product[nameKey]} 
+                       width={300}
+                       height={200}
                        loading="lazy" 
+                       quality={85}
+                       className="w-full h-full object-contain"
                        onError={(e) => { 
                          e.currentTarget.onerror = null; 
                          e.currentTarget.src = 'https://placehold.co/300x300/CCCCCC/FFFFFF?text=Image+Not+Found'; 
-                       }} 
+                       }}
+                       sizes="(max-width: 640px) 200px, (max-width: 768px) 250px, 300px"
                      />
                    </div>
                    <span className="product-category">{translations[lang][product.category_key]}</span>
