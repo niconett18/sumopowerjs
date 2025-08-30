@@ -1574,7 +1574,7 @@ allProducts.push(
         name_id: "Baterai Sumopower Iph 14 plus Batre Double Power Original 100%",
         name_en: "Sumopower Battery iPhone 14 Plus Double Power Original 100%",
         category_key: "category.iphone",
-        imageUrl: "../assets/images/iphone/ip 14.png",
+        imageUrl: "../assets/images/iphone/iphone 14 plus.png",
         shopeeUrl: "https://shopee.co.id/Baterai-Sumopower-Iph-14-plus-Batre-Double-Power-Original-100--i.1433685724.41704141591"
     },
     {
