@@ -16,91 +16,71 @@ export function mapLegacyToProduct(legacy: any) {
 	// Add box image for Samsung products
 	if (legacy.category_key === 'category.samsung' && imageSrc) {
 		// Replace '/samsung/' with '/samsung box/' in the path to get box image
-		const boxImageSrc = imageSrc.replace('/samsung/', '/samsung box/');
+		const boxImageSrc = imageSrc.replace('/samsung/', '/samsung box/').replace('../', '/');
 		
-		// Debug logging
-		console.log('Samsung product detected:', title);
-		console.log('Original imageSrc:', imageSrc);
-		console.log('Box imageSrc:', boxImageSrc);
-		
-		images.push({
-			src: boxImageSrc,
-			alt: `${title} - Package`
-		});
-		
-		console.log('Total images for Samsung product:', images.length);
+		// Only add if we have a valid path
+		if (boxImageSrc && boxImageSrc !== imageSrc) {
+			images.push({
+				src: boxImageSrc,
+				alt: `${title} - Package`
+			});
+		}
 	}
 
 	// Add box image for Infinix products
 	if (legacy.category_key === 'category.infinix' && imageSrc) {
 		// Replace '/infinix/' with '/infinix box/' in the path to get box image
-		const boxImageSrc = imageSrc.replace('/infinix/', '/infinix box/');
+		const boxImageSrc = imageSrc.replace('/infinix/', '/infinix box/').replace('../', '/');
 		
-		// Debug logging
-		console.log('Infinix product detected:', title);
-		console.log('Original imageSrc:', imageSrc);
-		console.log('Box imageSrc:', boxImageSrc);
-		
-		images.push({
-			src: boxImageSrc,
-			alt: `${title} - Package`
-		});
-		
-		console.log('Total images for Infinix product:', images.length);
+		// Only add if we have a valid path
+		if (boxImageSrc && boxImageSrc !== imageSrc) {
+			images.push({
+				src: boxImageSrc,
+				alt: `${title} - Package`
+			});
+		}
 	}
 
 	// Add box image for OPPO products
 	if (legacy.category_key === 'category.oppo' && imageSrc) {
 		// Replace '/oppo/' with '/oppo box/' in the path to get box image
-		const boxImageSrc = imageSrc.replace('/oppo/', '/oppo box/');
+		const boxImageSrc = imageSrc.replace('/oppo/', '/oppo box/').replace('../', '/');
 		
-		// Debug logging
-		console.log('OPPO product detected:', title);
-		console.log('Original imageSrc:', imageSrc);
-		console.log('Box imageSrc:', boxImageSrc);
-		
-		images.push({
-			src: boxImageSrc,
-			alt: `${title} - Package`
-		});
-		
-		console.log('Total images for OPPO product:', images.length);
+		// Only add if we have a valid path
+		if (boxImageSrc && boxImageSrc !== imageSrc) {
+			images.push({
+				src: boxImageSrc,
+				alt: `${title} - Package`
+			});
+		}
 	}
 
 	// Add box image for Vivo products
 	if (legacy.category_key === 'category.vivo' && imageSrc) {
 		// Replace '/vivo/' with '/vivo box/' in the path to get box image
-		const boxImageSrc = imageSrc.replace('/vivo/', '/vivo box/');
+		const boxImageSrc = imageSrc.replace('/vivo/', '/vivo box/').replace('../', '/');
 		
-		// Debug logging
-		console.log('Vivo product detected:', title);
-		console.log('Original imageSrc:', imageSrc);
-		console.log('Box imageSrc:', boxImageSrc);
-		
-		images.push({
-			src: boxImageSrc,
-			alt: `${title} - Package`
-		});
-		
-		console.log('Total images for Vivo product:', images.length);
+		// Only add if we have a valid path
+		if (boxImageSrc && boxImageSrc !== imageSrc) {
+			images.push({
+				src: boxImageSrc,
+				alt: `${title} - Package`
+			});
+		}
 	}
 
 	// Add box image for Xiaomi products
 	if (legacy.category_key === 'category.xiaomi' && imageSrc) {
 		// Replace '/xiaomi/' with '/xiaomi box/' in the path to get box image
-		const boxImageSrc = imageSrc.replace('/xiaomi/', '/xiaomi box/');
+		const boxImageSrc = imageSrc.replace('/xiaomi/', '/xiaomi box/').replace('../', '/');
 		
-		// Debug logging
-		console.log('Xiaomi product detected:', title);
-		console.log('Original imageSrc:', imageSrc);
-		console.log('Box imageSrc:', boxImageSrc);
-		
-		images.push({
-			src: boxImageSrc,
-			alt: `${title} - Package`
-		});
-		
-		console.log('Total images for Xiaomi product:', images.length);
+		// Only add if we have a valid path
+		if (boxImageSrc && boxImageSrc !== imageSrc) {
+			images.push({
+				src: boxImageSrc,
+				alt: `${title} - Package`
+			});
+		}
 	}
 
 	// Add box image for iPhone products
@@ -143,21 +123,16 @@ export function mapLegacyToProduct(legacy: any) {
 		
 		// Get the mapped box filename or try direct replacement
 		const boxFilename = iphoneBoxMapping[filename] || filename;
-		const boxImageSrc = `../assets/images/iphone box/${boxFilename}`;
 		
-		// Debug logging
-		console.log('iPhone product detected:', title);
-		console.log('Original imageSrc:', imageSrc);
-		console.log('Original filename:', filename);
-		console.log('Box filename:', boxFilename);
-		console.log('Box imageSrc:', boxImageSrc);
-		
-		images.push({
-			src: boxImageSrc,
-			alt: `${title} - Package`
-		});
-		
-		console.log('Total images for iPhone product:', images.length);
+		// Only add box image if we have a valid filename
+		if (boxFilename && boxFilename.trim() !== '') {
+			const boxImageSrc = `/assets/images/iphone box/${boxFilename}`;
+			
+			images.push({
+				src: boxImageSrc,
+				alt: `${title} - Package`
+			});
+		}
 	}
 
 	return {
