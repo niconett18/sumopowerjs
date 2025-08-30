@@ -38,10 +38,40 @@ export default function ProductModal({ isOpen, onClose, product, lang = 'en' }) 
       }
     }
     
+    // Add single box image for Infinix products (avoid duplicate/broken preview)
+    if (product.category_key === 'category.infinix' && product.imageUrl) {
+      const filename = product.imageUrl.split('/').pop();
+      if (filename) {
+        const stripped = filename.replace(/^BL-/, '');
+        const known = [
+          '39LX.png','49FX.png','49NX.png','58BX.png','BL-49GX.png','BL-49JX.png','BL-49KX-1.png','BL-49KX.png','BL-49LX.png','BL-51BX.png'
+        ];
+        let chosen = null;
+        if (known.includes(stripped)) chosen = stripped; else if (known.includes(filename)) chosen = filename;
+        if (chosen) {
+          images.push({
+            src: `/assets/images/infinix%20box/${chosen}`,
+            alt: `${product.name_en || product.name_id} - Box`,
+            type: 'box'
+          });
+        }
+      }
+    }
+    
     return images;
   };
 
-  const images = getProductImages(product);
+  // Prefer precomputed images array (from mapLegacyToProduct) if provided
+  const images = Array.isArray(product?.images) && product.images.length > 0 
+    ? product.images
+        .map((img, idx) => ({
+          src: img.src || img.image || '',
+          alt: img.alt || product.name_en || product.name_id || `Image ${idx+1}`,
+          type: idx === 0 ? 'product' : 'box'
+        }))
+        // Filter out empty or duplicate src values
+        .filter((img, idx, arr) => img.src && arr.findIndex(o => o.src === img.src) === idx)
+    : getProductImages(product);
   const currentImage = images[currentImageIndex] || images[0];
 
   useEffect(() => {
@@ -82,7 +112,19 @@ export default function ProductModal({ isOpen, onClose, product, lang = 'en' }) 
                 <img 
                   src={currentImage?.src || product.imageUrl} 
                   alt={currentImage?.alt || product.name_en || product.name_id} 
-                  className="mx-auto max-h-[180px] sm:max-h-[190px] object-contain w-full" 
+                  className="mx-auto max-h-[180px] sm:max-h-[190px] object-contain w-full"
+                  onError={(e) => {
+                    // Minimal fallback: try original filename if stripped version missing
+                    if (currentImage?.type === 'box' && product.category_key === 'category.infinix') {
+                      const original = product.imageUrl.split('/').pop();
+                      if (original) {
+                        const candidate = `/assets/images/infinix%20box/${original}`;
+                        if (candidate !== e.target.getAttribute('src')) {
+                          e.target.src = candidate;
+                        }
+                      }
+                    }
+                  }}
                 />
                 
                 {/* Navigation Arrows */}
@@ -126,6 +168,17 @@ export default function ProductModal({ isOpen, onClose, product, lang = 'en' }) 
                         src={img.src} 
                         alt={img.alt} 
                         className="w-full h-full object-contain"
+                        onError={(e) => {
+                          if (img.type === 'box' && product.category_key === 'category.infinix') {
+                            const original = product.imageUrl.split('/').pop();
+                            if (original) {
+                              const candidate = `/assets/images/infinix%20box/${original}`;
+                              if (candidate !== e.target.getAttribute('src')) {
+                                e.target.src = candidate;
+                              }
+                            }
+                          }
+                        }}
                       />
                     </button>
                   ))}
@@ -197,7 +250,18 @@ export default function ProductModal({ isOpen, onClose, product, lang = 'en' }) 
                   <img 
                     src={currentImage?.src || product.imageUrl} 
                     alt={currentImage?.alt || product.name_en || product.name_id} 
-                    className="mx-auto max-h-[180px] sm:max-h-[190px] object-contain w-full" 
+                    className="mx-auto max-h-[180px] sm:max-h-[190px] object-contain w-full"
+                    onError={(e) => {
+                      if (currentImage?.type === 'box' && product.category_key === 'category.infinix') {
+                        const original = product.imageUrl.split('/').pop();
+                        if (original) {
+                          const candidate = `/assets/images/infinix%20box/${original}`;
+                          if (candidate !== e.target.getAttribute('src')) {
+                            e.target.src = candidate;
+                          }
+                        }
+                      }
+                    }}
                   />
                   
                   {/* Navigation Arrows */}
@@ -241,6 +305,17 @@ export default function ProductModal({ isOpen, onClose, product, lang = 'en' }) 
                           src={img.src} 
                           alt={img.alt} 
                           className="w-full h-full object-contain"
+                          onError={(e) => {
+                            if (img.type === 'box' && product.category_key === 'category.infinix') {
+                              const original = product.imageUrl.split('/').pop();
+                              if (original) {
+                                const candidate = `/assets/images/infinix%20box/${original}`;
+                                if (candidate !== e.target.getAttribute('src')) {
+                                  e.target.src = candidate;
+                                }
+                              }
+                            }
+                          }}
                         />
                       </button>
                     ))}

@@ -27,17 +27,19 @@ export function mapLegacyToProduct(legacy: any) {
 		}
 	}
 
-	// Add box image for Infinix products
+	// Add box image for Infinix products (folder has space; some files keep BL- prefix, others don't)
 	if (legacy.category_key === 'category.infinix' && imageSrc) {
-		// Replace '/infinix/' with '/infinix box/' in the path to get box image
-		const boxImageSrc = imageSrc.replace('/infinix/', '/infinix box/').replace('../', '/');
-		
-		// Only add if we have a valid path
-		if (boxImageSrc && boxImageSrc !== imageSrc) {
-			images.push({
-				src: boxImageSrc,
-				alt: `${title} - Package`
-			});
+		const filename = imageSrc.split('/').pop() || '';
+		if (filename) {
+			const stripped = filename.replace(/^BL-/, '');
+			// Decide which variant actually exists
+			let chosen: string | null = null;
+			if (INFINIX_BOX_FILES.includes(stripped)) chosen = stripped; else
+			if (INFINIX_BOX_FILES.includes(filename)) chosen = filename; else
+			if (INFINIX_BOX_FILES.includes(stripped.replace(/^(\d+)([A-Z]+)$/, '$1$2'))) chosen = stripped; // safety
+			if (chosen) {
+				images.push({ src: `/assets/images/infinix%20box/${chosen}`, alt: `${title} - Package` });
+			}
 		}
 	}
 
@@ -147,6 +149,20 @@ export function mapLegacyToProduct(legacy: any) {
 		ctaLabel: 'Buy',
 	} as const;
 }
+
+// Known existing Infinix box image filenames (from public/assets/images/infinix box directory)
+const INFINIX_BOX_FILES = [
+	'39LX.png',
+	'49FX.png',
+	'49NX.png',
+	'58BX.png',
+	'BL-49GX.png',
+	'BL-49JX.png',
+	'BL-49KX-1.png',
+	'BL-49KX.png',
+	'BL-49LX.png',
+	'BL-51BX.png'
+];
 
 export function normalizePath(path: string) {
 	if (typeof path !== 'string' || !path) return path;
