@@ -9,11 +9,162 @@ export function mapLegacyToProduct(legacy: any) {
 		'Optimized for device safety',
 		'Consistent performance',
 	];
+
+	// Create images array with main product image
+	const images = [{ src: imageSrc, alt: title }];
+
+	// Add box image for Samsung products
+	if (legacy.category_key === 'category.samsung' && imageSrc) {
+		// Replace '/samsung/' with '/samsung box/' in the path to get box image
+		const boxImageSrc = imageSrc.replace('/samsung/', '/samsung box/');
+		
+		// Debug logging
+		console.log('Samsung product detected:', title);
+		console.log('Original imageSrc:', imageSrc);
+		console.log('Box imageSrc:', boxImageSrc);
+		
+		images.push({
+			src: boxImageSrc,
+			alt: `${title} - Package`
+		});
+		
+		console.log('Total images for Samsung product:', images.length);
+	}
+
+	// Add box image for Infinix products
+	if (legacy.category_key === 'category.infinix' && imageSrc) {
+		// Replace '/infinix/' with '/infinix box/' in the path to get box image
+		const boxImageSrc = imageSrc.replace('/infinix/', '/infinix box/');
+		
+		// Debug logging
+		console.log('Infinix product detected:', title);
+		console.log('Original imageSrc:', imageSrc);
+		console.log('Box imageSrc:', boxImageSrc);
+		
+		images.push({
+			src: boxImageSrc,
+			alt: `${title} - Package`
+		});
+		
+		console.log('Total images for Infinix product:', images.length);
+	}
+
+	// Add box image for OPPO products
+	if (legacy.category_key === 'category.oppo' && imageSrc) {
+		// Replace '/oppo/' with '/oppo box/' in the path to get box image
+		const boxImageSrc = imageSrc.replace('/oppo/', '/oppo box/');
+		
+		// Debug logging
+		console.log('OPPO product detected:', title);
+		console.log('Original imageSrc:', imageSrc);
+		console.log('Box imageSrc:', boxImageSrc);
+		
+		images.push({
+			src: boxImageSrc,
+			alt: `${title} - Package`
+		});
+		
+		console.log('Total images for OPPO product:', images.length);
+	}
+
+	// Add box image for Vivo products
+	if (legacy.category_key === 'category.vivo' && imageSrc) {
+		// Replace '/vivo/' with '/vivo box/' in the path to get box image
+		const boxImageSrc = imageSrc.replace('/vivo/', '/vivo box/');
+		
+		// Debug logging
+		console.log('Vivo product detected:', title);
+		console.log('Original imageSrc:', imageSrc);
+		console.log('Box imageSrc:', boxImageSrc);
+		
+		images.push({
+			src: boxImageSrc,
+			alt: `${title} - Package`
+		});
+		
+		console.log('Total images for Vivo product:', images.length);
+	}
+
+	// Add box image for Xiaomi products
+	if (legacy.category_key === 'category.xiaomi' && imageSrc) {
+		// Replace '/xiaomi/' with '/xiaomi box/' in the path to get box image
+		const boxImageSrc = imageSrc.replace('/xiaomi/', '/xiaomi box/');
+		
+		// Debug logging
+		console.log('Xiaomi product detected:', title);
+		console.log('Original imageSrc:', imageSrc);
+		console.log('Box imageSrc:', boxImageSrc);
+		
+		images.push({
+			src: boxImageSrc,
+			alt: `${title} - Package`
+		});
+		
+		console.log('Total images for Xiaomi product:', images.length);
+	}
+
+	// Add box image for iPhone products
+	if (legacy.category_key === 'category.iphone' && imageSrc) {
+		// Extract the filename from the image URL
+		const filename = imageSrc.split('/').pop() || '';
+		
+		// Create mapping for iPhone box images with naming variations
+		const iphoneBoxMapping: { [key: string]: string } = {
+			'15 promax.png': '15 PRO.png',
+			'14 pro max.png': '14 PRO MAX.png',
+			'14 pro.png': '14 PRO.png',
+			'13 promax.png': '13 PRO MAX.png',
+			'13 pro.png': '13 PRO.png',
+			'12 pro max.png': '12 PRO MAX.png',
+			'12_12pro.png': '12/12 PRO.png',
+			'11 promax.png': '11 PROMAX.png',
+			'ip 11 pro.png': '11 PRO.png',
+			'ip 11.png': 'IP 11.png',
+			'ip 15.png': 'IP 15.png',
+			'ip 14.png': 'IP 14.png',
+			'ip 13.png': 'IP 13.png',
+			'ip 8 plus.png': '8G PLUS.png',
+			'ip 8.png': '8G.png',
+			'ip 7g plus.png': '7G PLUS.png',
+			'ip 7g.png': '7G.png',
+			'ip 6g plus.png': '6G PLUS.png',
+			'ip 6.png': '6G.png',
+			'ip 6s plus.png': '6S PLUS.png',
+			'ip 6s.png': '6S.png',
+			'ip 5s.png': 'IP 5S.png',
+			'ip x.png': 'IP X.png',
+			'ip xr.png': 'IP XR.png',
+			'ip xsmax.png': 'XS MAX.png',
+			'xs.png': 'XS MAX.png',
+			'15 plus.png': '15 PLUS.png',
+			'15 pro.png': '15 PRO.png',
+			'iphone 14 plus.png': 'iphone 14 plus.png'
+		};
+		
+		// Get the mapped box filename or try direct replacement
+		const boxFilename = iphoneBoxMapping[filename] || filename;
+		const boxImageSrc = `../assets/images/iphone box/${boxFilename}`;
+		
+		// Debug logging
+		console.log('iPhone product detected:', title);
+		console.log('Original imageSrc:', imageSrc);
+		console.log('Original filename:', filename);
+		console.log('Box filename:', boxFilename);
+		console.log('Box imageSrc:', boxImageSrc);
+		
+		images.push({
+			src: boxImageSrc,
+			alt: `${title} - Package`
+		});
+		
+		console.log('Total images for iPhone product:', images.length);
+	}
+
 	return {
 		id,
 		title,
 		subtitle: undefined,
-		images: [{ src: imageSrc, alt: title }],
+		images,
 		highlights: defaultHighlights,
 		buyUrl: legacy.shopeeUrl || legacy.buyUrl,
 		price: undefined,
