@@ -30,8 +30,8 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-        <link rel="icon" href="/assets/images/logo.png" />
-        <title>SumoPower - Powering Your World</title>
+        <link rel="icon" href="/assets/images/logowhite.png" />
+        <title>SumoPower - Power up like a SUMO</title>
         <meta name="description" content="Rasakan energi yang tahan lama dan andal dengan baterai SumoPower." />
       </head>
       <body>
