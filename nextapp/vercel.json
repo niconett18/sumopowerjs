@@ -7,6 +7,17 @@
     { "source": "/pages/about.html", "destination": "/pages/about" },
     { "source": "/products.html", "destination": "/pages/products" },
     { "source": "/about.html", "destination": "/pages/about" }
+  ],
+  "headers": [
+    {
+      "source": "/favicon.ico",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    }
   ]
 }
 
