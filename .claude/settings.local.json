@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem \"d:\\\\NICHOLAS\\\\Project\\\\SumoPower ReactJS GITHUB\\\\sumopowerjs\\\\frontend\\\\app\\\\[locale]\\\\pages\\\\products\")",
+      "Bash(Get-ChildItem \"d:\\\\NICHOLAS\\\\Project\\\\SumoPower ReactJS GITHUB\\\\sumopowerjs\\\\frontend\\\\app\\\\[locale]\\\\pages\\\\about\")",
+      "Bash(xargs grep -l \"Html\\\\|_document\")"
+    ]
+  }
+}
