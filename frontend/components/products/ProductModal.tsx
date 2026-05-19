@@ -1,5 +1,6 @@
 'use client';
 import { useEffect } from 'react';
+import Image from 'next/image';
 import { X, Check, Smartphone } from 'lucide-react';
 import { BatteryIllo } from '../ui/BatteryIllo';
 import { formatIDR } from '../../lib/format';
@@ -63,10 +64,13 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
         {/* ── Image panel ─────────────────────────── */}
         <div className="bg-paper-2 w-full md:w-[38%] aspect-square md:aspect-auto md:min-h-[400px] relative shrink-0 overflow-hidden">
           {product.image ? (
-            <img
+            <Image
               src={product.image}
               alt={title}
-              className="absolute inset-0 w-full h-full object-contain p-6"
+              fill
+              sizes="(max-width: 768px) 100vw, 38vw"
+              className="object-contain p-6"
+              priority
             />
           ) : (
             <div className="absolute inset-0 grid place-items-center">

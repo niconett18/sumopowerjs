@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ProductModal } from './ProductModal';
 import { Product } from '../../types/product';
@@ -25,10 +26,13 @@ export function ProductCard({ product }: ProductCardProps) {
       >
         <div className="aspect-square bg-paper-2 relative overflow-hidden shrink-0">
           {product.image ? (
-            <img
+            <Image
               src={product.image}
               alt={title}
-              className="absolute inset-0 w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+              fill
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+              className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+              placeholder="empty"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-ink-mute text-xs">
